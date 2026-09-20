@@ -38,6 +38,13 @@ npm create cloudflare@latest -- --template=cloudflare/templates/d1-template
 
 A live public deployment of this template is available at [https://d1-template.templates.workers.dev](https://d1-template.templates.workers.dev)
 
+## Installation sur téléphone
+
+Après déploiement, ouvrez l'URL publique de l'application sur votre téléphone.
+
+- Android : dans le navigateur, utilisez **Installer l'application** ou **Ajouter à l'écran d'accueil**.
+- iPhone : dans Safari, utilisez **Partager** puis **Sur l'écran d'accueil**.
+
 ## Setup Steps
 
 1. Install the project dependencies with a package manager of your choice:
