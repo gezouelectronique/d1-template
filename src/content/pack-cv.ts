@@ -42,7 +42,7 @@ export const PACK_CV = `
 ### Compétences
 
 - Informatique : Excel (tableaux croisés dynamiques), Word, KoboToolbox, [autre]
-- Langues : Français (courant), Anglais ([niveau]), [langue locale] (langue maternelle)
+- Langues : Français (courant), Anglais ([niveau]), [haoussa / zarma / fulfulde / tamasheq / kanouri…] (langue maternelle)
 - Permis de conduire : [catégorie]
 
 ### Références

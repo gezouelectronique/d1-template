@@ -59,7 +59,7 @@ Règle des contenus : **80 % de conseils utiles et gratuits, 20 % de promotion.*
 **J6 · FB — Promotion**
 > 📘 Le guide complet **« Devenir Agent Humanitaire »** est disponible :
 > ✔️ Les 12 métiers qui recrutent ✔️ Les formations gratuites reconnues ✔️ Le volontariat comme porte d'entrée ✔️ Un plan d'action de 90 jours ✔️ Comment éviter les arnaques
-> 💳 5 000 F seulement, paiement Orange Money, MTN, Moov, Wave.
+> 💳 5 000 F seulement, paiement Airtel Money, Moov Money (selon opérateurs activés).
 > 👉 [LIEN]/produit/guide-complet?src=facebook
 
 **J7 · WhatsApp — Sondage**
@@ -91,7 +91,7 @@ Règle des contenus : **80 % de conseils utiles et gratuits, 20 % de promotion.*
 > 👉 [LIEN]/produit/pack-cv?src=facebook
 
 **J12 · FB + LinkedIn — Les langues**
-> 🗣️ Vous parlez dioula, wolof, mooré, fulfulde, lingala… ? C'est un **atout**. Mettez vos langues locales sur votre CV : les ONG ont besoin de personnes qui communiquent avec les communautés.
+> 🗣️ Vous parlez haoussa, zarma, fulfulde, tamasheq, kanouri… ? C'est un **atout**. Mettez vos langues locales sur votre CV : les ONG ont besoin de personnes qui communiquent avec les communautés.
 
 **J13 · FB — Témoignage / question du public** (reprenez une question reçue en message et répondez-y publiquement).
 

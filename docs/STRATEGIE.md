@@ -65,7 +65,7 @@ N'écrivez qu'aux personnes qui se sont inscrites, et retirez immédiatement qui
 ## 4. Publicité Facebook / Instagram
 
 - **Objectif de campagne** : *Prospects* ou *Trafic* vers `/?src=fbads#gratuit` (le guide gratuit convertit beaucoup mieux qu'une vente directe).
-- **Ciblage** : 20–35 ans, votre pays (+ pays voisins de même devise), intérêts : ONG, Nations Unies, Croix-Rouge, recherche d'emploi, volontariat, développement international.
+- **Ciblage** : 20–35 ans, Niger (Niamey, Maradi, Zinder, Tahoua, Dosso, Tillabéri, Diffa, Agadez), intérêts : ONG, Nations Unies, Croix-Rouge, recherche d'emploi, volontariat, développement international.
 - **Budget test** : 3 publicités × 1 000–2 000 F/jour pendant 5 jours. Gardez celle dont le **coût par prospect** est le plus bas (objectif < 150 F), arrêtez les autres.
 - **Règle de rentabilité** : si 1 prospect coûte 150 F et que 10 % achètent à 7 500 F, chaque 1 500 F de pub rapporte ~7 500 F. Augmentez le budget de 20 % tous les 3 jours tant que ça reste rentable.
 - Renseignez `META_PIXEL_ID` pour mesurer les résultats.

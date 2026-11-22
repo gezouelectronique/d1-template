@@ -1,7 +1,7 @@
-# Cap Humanitaire — boutique de guides numériques
+# Carrière Humanitaire au Niger — boutique de guides numériques
 
-Site de vente de guides et e-books pour les jeunes qui veulent travailler dans l'humanitaire (ONG, ONU, Croix-Rouge).
-Paiement Mobile Money (Orange, MTN, Moov, Wave) et carte via CinetPay, livraison automatique, tableau de bord des ventes.
+Site de vente de guides et e-books pour les jeunes Nigériens qui veulent travailler dans l'humanitaire (ONG, ONU, Croix-Rouge).
+Paiement Mobile Money (Airtel Money, Moov Money…) et carte via CinetPay, livraison automatique, tableau de bord des ventes.
 
 Hébergement : Cloudflare Workers + base D1 (gratuit jusqu'à ~100 000 visites/jour).
 

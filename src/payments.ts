@@ -1,4 +1,4 @@
-// Intégration CinetPay (Mobile Money Orange, MTN, Moov, Wave + cartes) — API Checkout v2.
+// Intégration CinetPay (Mobile Money + cartes, zone UEMOA/CEMAC) — API Checkout v2.
 // Doc : https://docs.cinetpay.com/api/1.0-fr/checkout/initialisation
 import type { AppEnv } from "./config";
 

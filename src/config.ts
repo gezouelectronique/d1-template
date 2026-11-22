@@ -14,6 +14,7 @@ export interface AppEnv {
 	LINKEDIN_URL?: string;
 	SUPPORT_WHATSAPP?: string; // numéro au format international sans + (ex: 2250700000000)
 	META_PIXEL_ID?: string;
+	PAYMENT_METHODS: string; // moyens de paiement affichés
 	MONTHLY_TARGET: string; // objectif mensuel en FCFA
 	// Secrets (wrangler secret put ...)
 	CINETPAY_API_KEY?: string;

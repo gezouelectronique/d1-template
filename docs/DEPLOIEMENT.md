@@ -7,19 +7,19 @@ Durée : environ 1 heure, plus le délai de validation CinetPay (quelques jours,
 1. Créez un compte marchand sur **cinetpay.com**.
 2. Fournissez les documents demandés (pièce d'identité, et selon le pays registre de commerce / statut d'auto-entrepreneur). Sans validation, vous ne pouvez encaisser que des paiements de test.
 3. Dans le tableau de bord : **Intégration** → notez votre **API KEY** et votre **SITE ID**.
-4. Vérifiez la devise de votre compte : **XOF** (UEMOA : Côte d'Ivoire, Sénégal, Burkina, Mali, Bénin, Togo, Niger) ou **XAF** (CEMAC : Cameroun, Gabon, Congo…).
+4. Devise : **XOF** (le Niger est dans la zone UEMOA) — déjà configuré.
+5. **Important pour le Niger** : avant de signer, demandez au service commercial quels opérateurs sont couverts **au Niger** (Airtel Money, Moov Money/Flooz, Zamani Cash, Nita…) et mettez la liste exacte dans la variable `PAYMENT_METHODS` de `wrangler.json`. Si la couverture Niger est insuffisante, comparez avec d'autres agrégateurs présents dans la zone UEMOA (FedaPay, PayDunya, Kkiapay…) : seul `src/payments.ts` serait à adapter.
 
-> Alternatives si CinetPay n'est pas disponible dans votre pays : FedaPay, PayDunya, Kkiapay. Seul le fichier `src/payments.ts` serait à adapter.
 
 ## 2. Déployer sur Cloudflare (gratuit)
 
 ```bash
 npm install
 npx wrangler login
-npx wrangler d1 create cap-humanitaire-db
+npx wrangler d1 create carriere-humanitaire-db
 ```
 
-Copiez le `database_id` affiché dans `wrangler.json` (champ `d1_databases[0].database_id`, et mettez `database_name` à `cap-humanitaire-db`).
+Copiez le `database_id` affiché dans `wrangler.json` (champ `d1_databases[0].database_id`, et mettez `database_name` à `carriere-humanitaire-db`).
 
 Ajoutez les secrets (ils ne sont jamais écrits dans le code) :
 
@@ -35,23 +35,23 @@ Puis déployez :
 npm run deploy
 ```
 
-Wrangler affiche l'adresse du site, du type `https://cap-humanitaire.<votre-compte>.workers.dev`.
+Wrangler affiche l'adresse du site, du type `https://carriere-humanitaire-niger.<votre-compte>.workers.dev`. **Copiez-la dans `SITE_URL`** (`wrangler.json`) puis relancez `npm run deploy`.
 
 ## 3. Personnaliser `wrangler.json` → `vars`
 
 | Variable | Exemple | Rôle |
 |---|---|---|
-| `SITE_NAME` | `Cap Humanitaire` | Nom affiché (mettez le nom de votre marque) |
-| `SITE_URL` | `https://cap-humanitaire.xxx.workers.dev` | **Obligatoire et exact** : sert aux retours de paiement |
-| `LOGO_URL` | `https://…/logo.png` | Votre logo (voir ci-dessous) |
+| `SITE_NAME` | `Carrière Humanitaire au Niger` | Nom affiché |
+| `SITE_URL` | `https://carriere-humanitaire-niger.xxx.workers.dev` | **Obligatoire et exact** : sert aux retours de paiement |
+| `LOGO_URL` | `/logo.png` | Votre logo (fichier dans `public/`) |
 | `CURRENCY` | `XOF` ou `XAF` | Devise de votre compte CinetPay |
-| `COUNTRY_CODE` | `CI`, `SN`, `CM`… | Pays |
+| `COUNTRY_CODE` | `NE` | Pays (Niger) |
 | `FACEBOOK_URL`, `WHATSAPP_CHANNEL_URL`, `LINKEDIN_URL` | liens de vos pages | Affichés en pied de page |
-| `SUPPORT_WHATSAPP` | `2250700000000` | Bouton WhatsApp flottant (sans le +) |
+| `SUPPORT_WHATSAPP` | `22790000000` | Bouton WhatsApp flottant (sans le +) |
 | `META_PIXEL_ID` | `1234567890` | Suivi des publicités Facebook (facultatif) |
 | `MONTHLY_TARGET` | `1000000` | Objectif affiché dans `/admin` |
 
-**Logo** : le plus simple est de le mettre dans un dossier `public/` servi par Cloudflare, ou de l'héberger sur votre page Facebook / un service d'images, puis de coller l'adresse directe de l'image dans `LOGO_URL`. Redéployez après chaque modification (`npm run deploy`).
+Déjà configurés : nom, logo (`public/logo.png`, image de partage `public/og.jpg`), chaîne WhatsApp, page Facebook, pays Niger, devise XOF. **À compléter** : `SUPPORT_WHATSAPP` (votre numéro, ex. `22790000000`), `LINKEDIN_URL`, `META_PIXEL_ID`. Redéployez après chaque modification (`npm run deploy`).
 
 ## 4. Tester avant d'annoncer
 
@@ -61,7 +61,7 @@ Wrangler affiche l'adresse du site, du type `https://cap-humanitaire.<votre-comp
 
 ## 5. (Recommandé) Nom de domaine
 
-Un domaine `.com` ou national (ex. `caphumanitaire.com`, ~10 000 F/an) inspire plus confiance. Ajoutez-le dans Cloudflare → Workers → votre worker → *Domains & Routes*, puis mettez à jour `SITE_URL`.
+Un domaine `.com` ou national (ex. `carrierehumanitaire.ne` ou `.com`) inspire plus confiance. Ajoutez-le dans Cloudflare → Workers → votre worker → *Domains & Routes*, puis mettez à jour `SITE_URL`.
 
 ## Fonctionnement automatique
 

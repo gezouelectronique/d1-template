@@ -2,14 +2,14 @@ import type { AppEnv } from "./config";
 import { escapeHtml } from "./markdown";
 
 const CSS = `
-:root{--blue:#0b3b60;--blue2:#145a8d;--orange:#f28c28;--bg:#f6f8fb;--text:#1b2733;--muted:#5b6b7a;--ok:#1f8a4c}
+:root{--blue:#1c1c28;--blue2:#9b1590;--orange:#c822b6;--bg:#f6f8fb;--text:#1b2733;--muted:#5b6b7a;--ok:#1f8a4c}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:var(--bg);line-height:1.6}
 a{color:var(--blue2)}img{max-width:100%}
 .wrap{max-width:1040px;margin:0 auto;padding:0 18px}
 header.top{background:#fff;border-bottom:1px solid #e3e8ef}
 header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--blue);text-decoration:none;font-size:1.1rem}
-.brand img{height:40px;width:auto}
+.brand img{height:44px;width:auto}.brand span{display:none}
 .hero{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;padding:56px 0 64px}
 .hero h1{font-size:clamp(1.8rem,4.5vw,2.8rem);line-height:1.2;margin:0 0 14px}
 .hero p{font-size:1.15rem;opacity:.92;max-width:680px}
@@ -18,7 +18,7 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;h
 .btn.block{display:block;width:100%;text-align:center}
 section{padding:48px 0}section h2{font-size:1.7rem;color:var(--blue);margin-top:0}
 .grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 10px rgba(11,59,96,.08);position:relative;display:flex;flex-direction:column}
+.card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 10px rgba(0,0,0,.08);position:relative;display:flex;flex-direction:column}
 .card h3{margin:0 0 6px;color:var(--blue)}.card ul{padding-left:20px;flex:1}
 .badge{position:absolute;top:-12px;right:16px;background:var(--orange);color:#fff;font-size:.8rem;font-weight:700;padding:4px 10px;border-radius:20px}
 .price{font-size:1.6rem;font-weight:800;color:var(--blue)}.old{text-decoration:line-through;color:var(--muted);font-size:1rem;margin-left:8px;font-weight:400}
@@ -66,7 +66,7 @@ export function layout(env: AppEnv, title: string, body: string, opts: { descrip
 <title>${escapeHtml(title)} — ${site}</title>
 <meta name="description" content="${desc}">
 <meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${desc}">
-${env.LOGO_URL ? `<meta property="og:image" content="${escapeHtml(env.LOGO_URL)}"><link rel="icon" href="${escapeHtml(env.LOGO_URL)}">` : ""}
+${env.LOGO_URL ? `<meta property="og:image" content="${escapeHtml(env.SITE_URL)}/og.jpg"><link rel="icon" href="${escapeHtml(env.LOGO_URL)}">` : ""}
 <style>${CSS}</style>${pixel}
 </head><body>
 <header class="top"><div class="wrap"><a class="brand" href="/">${logo}<span>${site}</span></a><a href="/#produits" class="noprint">Nos guides</a></div></header>

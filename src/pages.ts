@@ -28,7 +28,7 @@ export function homePage(env: AppEnv, src: string): string {
 	const body = `
 <div class="hero"><div class="wrap">
   <h1>Décrochez votre premier poste dans l'humanitaire</h1>
-  <p>Les ONG et les agences de l'ONU recrutent chaque année des milliers de jeunes en Afrique. Apprenez les codes du secteur : les métiers, les formations gratuites, le CV qui se fait remarquer, l'entretien.</p>
+  <p>Les ONG et les agences de l'ONU recrutent chaque année des centaines de jeunes Nigériens, à Niamey, Diffa, Tillabéri, Maradi, Zinder, Tahoua, Agadez… Apprenez les codes du secteur : les métiers, les formations gratuites, le CV qui se fait remarquer, l'entretien.</p>
   <p><a class="btn" href="#produits">Voir les guides</a> &nbsp; <a class="btn ghost" href="#gratuit">Guide gratuit</a></p>
 </div></div>
 
@@ -40,7 +40,7 @@ export function homePage(env: AppEnv, src: string): string {
 
 <section id="produits" style="background:#fff"><div class="wrap">
   <h2 class="center">Nos guides</h2>
-  <p class="center muted">Paiement sécurisé par Orange Money, MTN MoMo, Moov Money, Wave ou carte bancaire. Accès immédiat après paiement.</p>
+  <p class="center muted">Paiement sécurisé par ${escapeHtml(env.PAYMENT_METHODS)}. Accès immédiat après paiement.</p>
   <div class="grid" style="margin-top:28px">${PRODUCTS.map((p) => productCard(p, src)).join("")}</div>
 </div></section>
 
@@ -53,7 +53,7 @@ export function homePage(env: AppEnv, src: string): string {
   <h2>Questions fréquentes</h2>
   <details><summary>Est-ce que ce guide me garantit un emploi ?</summary><p>Non, et méfiez-vous de quiconque vous le promet. Nos guides vous donnent une méthode, des ressources et des modèles pour augmenter vos chances. Le recrutement dépend de votre profil, de vos efforts et des postes disponibles.</p></details>
   <details><summary>Comment je reçois mon guide ?</summary><p>Immédiatement après le paiement, vous êtes redirigé vers une page avec votre lien d'accès personnel. Conservez ce lien : il reste valable 1 an. Vous pouvez enregistrer le guide en PDF depuis votre téléphone ou ordinateur.</p></details>
-  <details><summary>Quels moyens de paiement ?</summary><p>Orange Money, MTN Mobile Money, Moov Money, Wave et cartes bancaires, via la plateforme sécurisée CinetPay.</p></details>
+  <details><summary>Quels moyens de paiement ?</summary><p>${escapeHtml(env.PAYMENT_METHODS)}, via une plateforme de paiement sécurisée.</p></details>
   <details><summary>J'ai besoin d'un diplôme ?</summary><p>Pas forcément. Certains postes (agent communautaire, enquêteur, volontaire) sont accessibles sans diplôme universitaire. Le guide vous explique les différents parcours.</p></details>
   <details><summary>Je n'ai pas reçu mon lien, que faire ?</summary><p>Contactez-nous sur WhatsApp avec votre numéro de commande, nous vous le renvoyons.</p></details>
 </div></section>`;
@@ -80,7 +80,7 @@ export function productPage(env: AppEnv, p: Product, src: string, error?: string
       <input name="email" type="email" placeholder="E-mail (facultatif)" maxlength="120">
       <button class="btn block" type="submit">Payer ${formatPrice(p.price)}</button>
     </form>
-    <p class="muted center" style="font-size:.9rem">🔒 Paiement sécurisé · Orange Money · MTN · Moov · Wave · Carte</p>
+    <p class="muted center" style="font-size:.9rem">🔒 Paiement sécurisé · ${escapeHtml(env.PAYMENT_METHODS)}</p>
   </div>
 </div></section>`;
 	return layout(env, p.title, body, { description: p.subtitle });
