@@ -1,7 +1,7 @@
 {
 	"compatibility_date": "2025-10-08",
 	"main": "src/index.ts",
-	"name": "d1-template",
+	"name": "carriere-humanitaire-niger",
 	"upload_source_maps": true,
 	"d1_databases": [
 		{
@@ -10,7 +10,29 @@
 			"database_name": "d1-template-database"
 		}
 	],
+	"vars": {
+		"SITE_NAME": "Carrière Humanitaire au Niger",
+		"SITE_URL": "https://carriere-humanitaire-niger.workers.dev",
+		"LOGO_URL": "/logo.png",
+		"CURRENCY": "XOF",
+		"COUNTRY_CODE": "NE",
+		"WHATSAPP_CHANNEL_URL": "https://whatsapp.com/channel/0029VbAipUQHgZWZmf7LfJ0M",
+		"FACEBOOK_URL": "https://www.facebook.com/share/1duQYxrYat/",
+		"LINKEDIN_URL": "",
+		"SUPPORT_WHATSAPP": "",
+		"META_PIXEL_ID": "",
+		"MONTHLY_TARGET": "1000000",
+		"PAYMENT_METHODS": "Airtel Money, Moov Money (Flooz), Zamani Cash ou carte bancaire"
+	},
+	"triggers": {
+		"crons": [
+			"*/30 * * * *"
+		]
+	},
 	"observability": {
 		"enabled": true
+	},
+	"assets": {
+		"directory": "public"
 	}
 }
