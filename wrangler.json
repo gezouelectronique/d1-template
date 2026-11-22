@@ -1,7 +1,7 @@
 {
 	"compatibility_date": "2025-10-08",
 	"main": "src/index.ts",
-	"name": "d1-template",
+	"name": "cap-humanitaire",
 	"upload_source_maps": true,
 	"d1_databases": [
 		{
@@ -10,6 +10,22 @@
 			"database_name": "d1-template-database"
 		}
 	],
+	"vars": {
+		"SITE_NAME": "Cap Humanitaire",
+		"SITE_URL": "https://cap-humanitaire.workers.dev",
+		"LOGO_URL": "",
+		"CURRENCY": "XOF",
+		"COUNTRY_CODE": "CI",
+		"WHATSAPP_CHANNEL_URL": "",
+		"FACEBOOK_URL": "",
+		"LINKEDIN_URL": "",
+		"SUPPORT_WHATSAPP": "",
+		"META_PIXEL_ID": "",
+		"MONTHLY_TARGET": "1000000"
+	},
+	"triggers": {
+		"crons": ["*/30 * * * *"]
+	},
 	"observability": {
 		"enabled": true
 	}
