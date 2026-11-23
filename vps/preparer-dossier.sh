@@ -18,10 +18,11 @@ git archive --format=tar HEAD | tar -x -C "$OUT/code-source"
 if node -e "require('playwright')" 2>/dev/null; then
   TMP="$(mktemp -d)"
   cp -r dist migrations public "$TMP/"
-  (cd "$TMP" && APP_DIR="$TMP" PORT=3377 SITE_URL=http://localhost:3377 node --no-warnings dist/server.mjs >/dev/null 2>&1 &)
+  APP_DIR="$TMP" PORT=3377 SITE_URL=http://localhost:3377 node --no-warnings "$TMP/dist/server.mjs" </dev/null >/dev/null 2>&1 &
+  SERVER_PID=$!
   sleep 2
-  node vps/pdf.cjs "$TMP" "$OUT/documents"
-  pkill -f "$TMP/dist/server.mjs" || pkill -f "PORT=3377" || true
+  node vps/pdf.cjs "$TMP" "$OUT/documents" || true
+  kill "$SERVER_PID" 2>/dev/null || true
   rm -rf "$TMP"
 fi
 echo "Dossier prêt : $OUT"

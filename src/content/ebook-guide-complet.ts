@@ -9,7 +9,7 @@ export const EBOOK_GUIDE_COMPLET = `
 
 ## Introduction : pourquoi l'humanitaire, et pourquoi maintenant ?
 
-Le secteur humanitaire et du développement emploie des centaines de milliers de personnes en Afrique. Contrairement à une idée reçue, **la grande majorité des agents humanitaires sont du personnel national** : des Ivoiriens en Côte d'Ivoire, des Burkinabè au Burkina Faso, des Camerounais au Cameroun, des Congolais en RDC… Les ONG internationales et les agences des Nations Unies recrutent localement, car elles ont besoin de personnes qui connaissent les langues, les communautés et le terrain.
+Le secteur humanitaire et du développement emploie des centaines de milliers de personnes en Afrique. Contrairement à une idée reçue, **la grande majorité des agents humanitaires sont du personnel national** . Au Niger, ce sont des Nigériens qui font tourner l'essentiel des programmes, à Niamey comme à Diffa, Tillabéri, Maradi, Zinder, Tahoua ou Agadez. Les ONG internationales et les agences des Nations Unies recrutent localement, car elles ont besoin de personnes qui connaissent les langues, les communautés et le terrain.
 
 Pour un jeune diplômé ou un jeune sans emploi, c'est une vraie opportunité. Mais le secteur a ses codes : un vocabulaire, un format de CV, des sites d'offres spécifiques, des formations attendues. Ceux qui connaissent ces codes passent devant ; ceux qui les ignorent envoient des dizaines de candidatures sans réponse.
 
