@@ -19,12 +19,12 @@
 		"WHATSAPP_CHANNEL_URL": "https://whatsapp.com/channel/0029VbAipUQHgZWZmf7LfJ0M",
 		"FACEBOOK_URL": "https://www.facebook.com/share/1duQYxrYat/",
 		"LINKEDIN_URL": "",
-		"SUPPORT_WHATSAPP": "",
+		"SUPPORT_WHATSAPP": "22796464949",
 		"META_PIXEL_ID": "",
 		"MONTHLY_TARGET": "1000000",
 		"PAYMENT_METHODS": "MyNita ou Amanata",
-		"MANUAL_PAYMENT_ACCOUNTS": "MyNita=96464949; Amanata=96464949; Wave=; Airtel Money=",
-		"MANUAL_PAYMENT_HOLDER": ""
+		"MANUAL_PAYMENT_ACCOUNTS": "MyNita=+22796464949; Amanata=+22796464949; Wave=; Airtel Money=",
+		"MANUAL_PAYMENT_HOLDER": "Jakfar Elhadji Yacoubou"
 	},
 	"triggers": {
 		"crons": [
