@@ -23,6 +23,11 @@
 
 ## Installation (5 minutes)
 
+### Le plus simple (Windows) : double-cliquez sur `INSTALLER-SUR-VPS.bat`
+
+Tapez le mot de passe root quand il est demandé (3 fois). C'est tout.
+
+
 ### Depuis Windows
 
 1. Ouvrez ce dossier, faites **Maj + clic droit** dans un espace vide → **Ouvrir la fenêtre PowerShell ici** (ou « Ouvrir dans le terminal »).
