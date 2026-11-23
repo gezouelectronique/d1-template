@@ -22,6 +22,11 @@ section{padding:48px 0}section h2{font-size:1.7rem;color:var(--blue);margin-top:
 .card h3{margin:0 0 6px;color:var(--blue)}.card ul{padding-left:20px;flex:1}
 .badge{position:absolute;top:-12px;right:16px;background:var(--orange);color:#fff;font-size:.8rem;font-weight:700;padding:4px 10px;border-radius:20px}
 .price{font-size:1.6rem;font-weight:800;color:var(--blue)}.old{text-decoration:line-through;color:var(--muted);font-size:1rem;margin-left:8px;font-weight:400}
+.btn.small{padding:6px 12px;font-size:.9rem;border-radius:8px}.btn.grey{background:#8a96a3}
+.btn.ghost-dark{background:transparent;color:var(--blue2);border:2px solid var(--blue2)}
+fieldset.methods{border:1px solid #cfd8e3;border-radius:10px;padding:10px 14px;display:grid;gap:8px}
+fieldset.methods legend{font-weight:700;padding:0 6px}fieldset.methods label{display:flex;gap:10px;align-items:center;cursor:pointer}
+fieldset.methods input{width:auto}.steps li{margin-bottom:10px}.big{font-size:1.25rem;white-space:nowrap}
 .muted{color:var(--muted)}.center{text-align:center}
 form.stack{display:grid;gap:12px}
 input{width:100%;padding:13px 14px;border:1px solid #cfd8e3;border-radius:10px;font-size:1rem}

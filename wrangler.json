@@ -22,7 +22,9 @@
 		"SUPPORT_WHATSAPP": "",
 		"META_PIXEL_ID": "",
 		"MONTHLY_TARGET": "1000000",
-		"PAYMENT_METHODS": "Airtel Money, Moov Money (Flooz), Zamani Cash ou carte bancaire"
+		"PAYMENT_METHODS": "Wave, MyNita, Amanata ou Airtel Money",
+		"MANUAL_PAYMENT_ACCOUNTS": "Wave=; MyNita=; Amanata=; Airtel Money=",
+		"MANUAL_PAYMENT_HOLDER": ""
 	},
 	"triggers": {
 		"crons": [
