@@ -7,6 +7,7 @@ DOMAIN="${1:-}"
 EMAIL="${2:-}"
 APP_DIR=/opt/carriere-humanitaire
 APP_USER=carriere
+APP_PORT="${APP_PORT:-3847}"   # port interne (différent des autres applications du VPS)
 SRC="$(cd "$(dirname "$0")" && pwd)"
 
 if [[ -z "$DOMAIN" ]]; then echo "Usage : bash install.sh mondomaine.com [email]"; exit 1; fi
@@ -40,6 +41,10 @@ chown -R "$APP_USER:$APP_USER" "$APP_DIR"
 chmod 600 "$APP_DIR/.env"
 
 echo "==> 4/6 Service systemd (démarrage automatique)"
+if ss -ltnp 2>/dev/null | grep -q ":$APP_PORT " && ! systemctl is-active --quiet carriere-humanitaire; then
+  echo "❌ Le port $APP_PORT est déjà utilisé par une autre application :"; ss -ltnp | grep ":$APP_PORT "
+  echo "   Relancez avec un autre port :  APP_PORT=3848 bash install.sh $DOMAIN"; exit 1
+fi
 cat > /etc/systemd/system/carriere-humanitaire.service <<UNIT
 [Unit]
 Description=Carriere Humanitaire au Niger - boutique en ligne
@@ -49,7 +54,7 @@ After=network.target
 User=$APP_USER
 WorkingDirectory=$APP_DIR
 Environment=APP_DIR=$APP_DIR
-Environment=PORT=3000
+Environment=PORT=$APP_PORT
 EnvironmentFile=$APP_DIR/.env
 ExecStart=/usr/bin/node --no-warnings $APP_DIR/dist/server.mjs
 Restart=always
@@ -72,7 +77,7 @@ server {
     server_name $DOMAIN www.$DOMAIN;
     client_max_body_size 1m;
     location / {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://127.0.0.1:$APP_PORT;
         proxy_set_header Host \$host;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto \$scheme;
@@ -81,7 +86,20 @@ server {
 NGINX
 ln -sf /etc/nginx/sites-available/carriere-humanitaire /etc/nginx/sites-enabled/carriere-humanitaire
 rm -f /etc/nginx/sites-enabled/default
-nginx -t && systemctl reload nginx
+nginx -t
+systemctl enable nginx >/dev/null 2>&1 || true
+if systemctl is-active --quiet nginx; then
+  systemctl reload nginx
+elif ! systemctl start nginx; then
+  echo ""
+  echo "❌ Nginx ne peut pas démarrer. Programmes qui occupent déjà les ports 80/443 :"
+  ss -ltnp | grep -E ':(80|443) ' || echo "   (aucun)"
+  echo "--- Journal Nginx ---"
+  journalctl -u nginx -n 15 --no-pager || true
+  echo ""
+  echo "➡️  Faites une capture de cette fenêtre et envoyez-la à Claude."
+  exit 1
+fi
 if command -v ufw >/dev/null && ufw status | grep -q active; then ufw allow 'Nginx Full' || true; fi
 
 echo "==> 6/6 Certificat HTTPS (Let's Encrypt)"
@@ -102,7 +120,7 @@ CRON
 chmod +x /etc/cron.daily/carriere-humanitaire-backup
 
 sleep 2
-if curl -fsS -o /dev/null http://127.0.0.1:3000/; then
+if curl -fsS -o /dev/null http://127.0.0.1:$APP_PORT/; then
   echo ""
   echo "✅ Site installé : https://$DOMAIN"
   echo "   Tableau de bord : https://$DOMAIN/admin"
