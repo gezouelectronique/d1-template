@@ -19,10 +19,12 @@
 		"WHATSAPP_CHANNEL_URL": "https://whatsapp.com/channel/0029VbAipUQHgZWZmf7LfJ0M",
 		"FACEBOOK_URL": "https://www.facebook.com/share/1duQYxrYat/",
 		"LINKEDIN_URL": "",
-		"SUPPORT_WHATSAPP": "",
+		"SUPPORT_WHATSAPP": "22796464949",
 		"META_PIXEL_ID": "",
 		"MONTHLY_TARGET": "1000000",
-		"PAYMENT_METHODS": "Airtel Money, Moov Money (Flooz), Zamani Cash ou carte bancaire"
+		"PAYMENT_METHODS": "Nita, Amana ou Wave",
+		"MANUAL_PAYMENT_ACCOUNTS": "Nita=+22796464949; Amana=+22796464949; Wave=",
+		"MANUAL_PAYMENT_HOLDER": "Jakfar Elhadji Yacoubou"
 	},
 	"triggers": {
 		"crons": [

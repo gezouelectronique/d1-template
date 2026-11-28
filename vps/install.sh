@@ -28,6 +28,15 @@ node --version
 echo "==> 3/6 Fichiers de l'application dans $APP_DIR"
 id "$APP_USER" >/dev/null 2>&1 || useradd --system --home "$APP_DIR" --shell /usr/sbin/nologin "$APP_USER"
 mkdir -p "$APP_DIR/data" "$APP_DIR/backups"
+STAMP="$(date +%Y%m%d-%H%M%S)"
+# Sauvegarde de la version actuelle avant remplacement (restaurable en cas de besoin)
+if [[ -d "$APP_DIR/dist" ]]; then
+  mkdir -p "$APP_DIR/backups/site-$STAMP"
+  cp -r "$APP_DIR/dist" "$APP_DIR/public" "$APP_DIR/backups/site-$STAMP/" 2>/dev/null || true
+  [[ -f "$APP_DIR/.env" ]] && cp "$APP_DIR/.env" "$APP_DIR/backups/site-$STAMP/env"
+  [[ -f /etc/nginx/sites-available/carriere-humanitaire ]] && cp /etc/nginx/sites-available/carriere-humanitaire "$APP_DIR/backups/site-$STAMP/nginx.conf"
+  echo "   Ancienne version sauvegardée dans $APP_DIR/backups/site-$STAMP"
+fi
 rm -rf "$APP_DIR/dist" "$APP_DIR/migrations" "$APP_DIR/public"
 cp -r "$SRC/dist" "$SRC/migrations" "$SRC/public" "$APP_DIR/"
 [[ -f "$SRC/configurer.sh" ]] && cp "$SRC/configurer.sh" "$APP_DIR/"
@@ -37,6 +46,15 @@ if [[ ! -f "$APP_DIR/.env" ]]; then
   echo "   Fichier de configuration créé : $APP_DIR/.env"
 else
   echo "   Configuration existante conservée : $APP_DIR/.env"
+  # Ajoute les nouveaux réglages qui n'existent pas encore (sans toucher aux réglages existants)
+  while IFS= read -r line; do
+    [[ "$line" =~ ^([A-Z_]+)= ]] || continue
+    key="${BASH_REMATCH[1]}"
+    if ! grep -q "^$key=" "$APP_DIR/.env"; then
+      printf '%s\n' "$line" >> "$APP_DIR/.env"
+      echo "   Nouveau réglage ajouté : $key"
+    fi
+  done < <(sed 's/\r$//' "$SRC/configuration.env")
 fi
 chown -R "$APP_USER:$APP_USER" "$APP_DIR"
 chmod 600 "$APP_DIR/.env"

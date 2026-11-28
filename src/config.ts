@@ -16,6 +16,10 @@ export interface AppEnv {
 	META_PIXEL_ID?: string;
 	PAYMENT_METHODS: string; // moyens de paiement affichés
 	MONTHLY_TARGET: string; // objectif mensuel en FCFA
+	/** Paiement manuel : "Wave=90000000; MyNita=90000000; …" (un moyen sans numéro n'est pas affiché) */
+	MANUAL_PAYMENT_ACCOUNTS?: string;
+	/** Nom du titulaire des comptes, affiché au client pour qu'il vérifie le bénéficiaire */
+	MANUAL_PAYMENT_HOLDER?: string;
 	// Secrets (wrangler secret put ...)
 	CINETPAY_API_KEY?: string;
 	CINETPAY_SITE_ID?: string;
@@ -90,5 +94,28 @@ export function getProduct(slug: string): Product | undefined {
 }
 
 export function formatPrice(amount: number): string {
-	return amount.toLocaleString("fr-FR").replace(/ | /g, " ") + " F CFA";
+	// espaces insécables : le prix ne se coupe pas en fin de ligne
+	return amount.toLocaleString("fr-FR").replace(/\s/g, "\u00a0") + "\u00a0F\u00a0CFA";
+}
+
+export interface ManualAccount {
+	method: string;
+	number: string;
+}
+
+/** Lit MANUAL_PAYMENT_ACCOUNTS ("Wave=90000000; MyNita=91000000") et ignore les moyens sans numéro. */
+export function manualAccounts(env: AppEnv): ManualAccount[] {
+	return (env.MANUAL_PAYMENT_ACCOUNTS || "")
+		.split(";")
+		.map((part) => {
+			const i = part.indexOf("=");
+			return i < 0 ? null : { method: part.slice(0, i).trim(), number: part.slice(i + 1).trim() };
+		})
+		.filter((a): a is ManualAccount => Boolean(a && a.method && a.number));
+}
+
+/** Numéro au format WhatsApp (international, sans +). Ajoute l'indicatif du Niger aux numéros locaux à 8 chiffres. */
+export function whatsappNumber(phone: string): string {
+	const digits = phone.replace(/\D/g, "").replace(/^00/, "");
+	return digits.length === 8 ? `227${digits}` : digits;
 }

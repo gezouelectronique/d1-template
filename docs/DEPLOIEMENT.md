@@ -11,6 +11,28 @@ Durée : environ 1 heure, plus le délai de validation CinetPay (quelques jours,
 5. **Important pour le Niger** : avant de signer, demandez au service commercial quels opérateurs sont couverts **au Niger** (Airtel Money, Moov Money/Flooz, Zamani Cash, Nita…) et mettez la liste exacte dans la variable `PAYMENT_METHODS` de `wrangler.json`. Si la couverture Niger est insuffisante, comparez avec d'autres agrégateurs présents dans la zone UEMOA (FedaPay, PayDunya, Kkiapay…) : seul `src/payments.ts` serait à adapter.
 
 
+## 1 bis. Paiement manuel (Wave, MyNita, Amanata, Airtel Money) — utilisable tout de suite
+
+Sans attendre CinetPay, le client peut payer en envoyant l'argent à **votre** numéro :
+
+1. Sur la page produit, il choisit son moyen (Wave, MyNita…) et clique sur **Commander**.
+2. Le site lui affiche le montant exact et votre numéro, puis lui demande la **référence de transaction** reçue par SMS.
+3. Dans `/admin`, section **Paiements manuels à valider**, vous vérifiez dans votre application que l'argent est bien arrivé avec cette référence, puis cliquez sur **Valider** (ou **Refuser**).
+4. Un bouton **Envoyer le lien sur WhatsApp** apparaît : il ouvre WhatsApp avec le message et le lien d'accès déjà écrits. Le lien s'affiche aussi sur la page du client.
+
+Réglages dans `wrangler.json` → `vars` :
+
+| Variable | Exemple |
+|---|---|
+| `MANUAL_PAYMENT_ACCOUNTS` | `Wave=90000000; MyNita=91000000; Amanata=92000000; Airtel Money=96000000` |
+| `MANUAL_PAYMENT_HOLDER` | `Moussa Abdou` (nom affiché au client pour qu'il vérifie le bénéficiaire) |
+| `PAYMENT_METHODS` | texte affiché sur le site, ex. `Wave, MyNita, Amanata ou Airtel Money` |
+
+Un moyen sans numéro (`Amanata=`) n'est pas proposé. Si CinetPay est aussi configuré, le client voit en plus « Paiement en ligne ».
+Une même référence ne peut pas servir à deux commandes ; les commandes non validées expirent après 7 jours.
+
+**Ne validez jamais sur la seule foi d'une capture d'écran** : vérifiez toujours la réception dans votre application ou votre relevé.
+
 ## 2. Déployer sur Cloudflare (gratuit)
 
 ```bash

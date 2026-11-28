@@ -1,29 +1,36 @@
 @echo off
 chcp 65001 >nul
-title Activer le paiement - Carriere Humanitaire au Niger
+title Configurer les paiements - Carriere Humanitaire au Niger
 setlocal
 set IP=162.35.180.79
 set TMPF=%TEMP%\carriere-config.txt
 
 echo ==========================================================
-echo   ACTIVER LE PAIEMENT ET LE CONTACT WHATSAPP
+echo   CONFIGURER LES PAIEMENTS : NITA, AMANA, WAVE
 echo ==========================================================
 echo.
-echo Les identifiants CinetPay se trouvent dans votre tableau de bord
-echo CinetPay, rubrique "Integration".
-echo Laissez vide (appuyez juste sur Entree) ce que vous n'avez pas encore.
+echo Appuyez sur Entree pour garder la valeur proposee entre crochets.
+echo Laissez vide ce que vous n'avez pas.
 echo.
-set "K="
-set "S="
-set "W="
-set /p "K=CinetPay API KEY  : "
-set /p "S=CinetPay SITE ID  : "
-set /p "W=Votre numero WhatsApp de contact (ex 22790000000, sans +) : "
-echo.
+set "NITA=+22796464949"
+set "AMANA=+22796464949"
+set "WAVE="
+set "HOLDER=Jakfar Elhadji Yacoubou"
+set "WA=22796464949"
+set /p "NITA=Numero Nita   [%NITA%] : "
+set /p "AMANA=Numero Amana  [%AMANA%] : "
+set /p "WAVE=Numero Wave (ex +22790000000) : "
+set /p "HOLDER=Nom du titulaire des comptes [%HOLDER%] : "
+set /p "WA=WhatsApp de contact, sans + [%WA%] : "
 
-> "%TMPF%" echo(%K%
->> "%TMPF%" echo(%S%
->> "%TMPF%" echo(%W%
+set "METHODS=Nita ou Amana"
+if not "%WAVE%"=="" set "METHODS=Nita, Amana ou Wave"
+
+> "%TMPF%" echo MANUAL_PAYMENT_ACCOUNTS=Nita=%NITA%; Amana=%AMANA%; Wave=%WAVE%
+>> "%TMPF%" echo MANUAL_PAYMENT_HOLDER=%HOLDER%
+>> "%TMPF%" echo PAYMENT_METHODS=%METHODS%
+>> "%TMPF%" echo SUPPORT_WHATSAPP=%WA%
+echo.
 
 if not exist "site\configurer.sh" (
   echo [ERREUR] Fichier site\configurer.sh introuvable. Placez ce .bat dans le dossier CARRIERE HUMANITAIRE NIGER.
@@ -34,26 +41,22 @@ echo [1/2] Envoi de l'outil de configuration...
 scp -o StrictHostKeyChecking=accept-new "site\configurer.sh" root@%IP%:/opt/carriere-humanitaire/configurer.sh
 if errorlevel 1 (
   echo [ERREUR] Envoi impossible. Faites une capture et envoyez-la a Claude.
-  del "%TMPF%" >nul 2>&1
   goto fin
 )
 echo [2/2] Enregistrement de la configuration...
 ssh root@%IP% "sed -i 's/\r$//' /opt/carriere-humanitaire/configurer.sh && bash /opt/carriere-humanitaire/configurer.sh" < "%TMPF%"
-set RC=%ERRORLEVEL%
-del "%TMPF%" >nul 2>&1
-if not "%RC%"=="0" (
+if errorlevel 1 (
   echo.
   echo [ERREUR] La configuration n'a pas abouti. Faites une capture de cette fenetre et envoyez-la a Claude.
 ) else (
   echo.
   echo ==========================================================
-  echo   C'EST FAIT. Testez maintenant un achat sur le site.
+  echo   C'EST FAIT. Verifiez la page de paiement du site.
   echo ==========================================================
   start "" "https://carrierehumanitaireniger.org/produit/pack-cv"
 )
-goto fin_ok
+
 :fin
 del "%TMPF%" >nul 2>&1
-:fin_ok
 echo.
 pause

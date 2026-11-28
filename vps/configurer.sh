@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-# Met à jour les identifiants CinetPay et le WhatsApp de contact (lus sur l'entrée standard),
-# puis redémarre le site. Appelé par CONFIGURER-PAIEMENT.bat.
+# Enregistre des réglages "NOM=valeur" (lus sur l'entrée standard, un par ligne) dans le .env
+# du site, puis redémarre le site. Appelé par CONFIGURER-PAIEMENT.bat.
 F="${ENV_FILE:-/opt/carriere-humanitaire/.env}"
-read -r K; read -r S; read -r W
-K="${K%$'\r'}"; S="${S%$'\r'}"; W="${W%$'\r'}"
-K="${K//[[:space:]]/}"; S="${S//[[:space:]]/}"; W="${W//[^0-9]/}"
+ALLOWED=" CINETPAY_API_KEY CINETPAY_SITE_ID SUPPORT_WHATSAPP MANUAL_PAYMENT_ACCOUNTS MANUAL_PAYMENT_HOLDER PAYMENT_METHODS ADMIN_PASSWORD LINKEDIN_URL META_PIXEL_ID "
 if [[ ! -f "$F" ]]; then echo "Fichier de configuration introuvable : $F"; exit 1; fi
 setv() {
   local tmp; tmp="$(mktemp)"
@@ -13,9 +11,16 @@ setv() {
   cat "$tmp" > "$F"
   rm -f -- "$tmp"
 }
-[[ -n "$K" ]] && setv CINETPAY_API_KEY "$K" && echo "Clé CinetPay enregistrée."
-[[ -n "$S" ]] && setv CINETPAY_SITE_ID "$S" && echo "Site ID CinetPay enregistré."
-[[ -n "$W" ]] && setv SUPPORT_WHATSAPP "$W" && echo "WhatsApp de contact enregistré : $W"
+while IFS= read -r line || [[ -n "$line" ]]; do
+  line="${line%$'\r'}"
+  [[ "$line" =~ ^([A-Z_]+)=(.*)$ ]] || continue
+  key="${BASH_REMATCH[1]}"; val="${BASH_REMATCH[2]}"
+  val="${val#"${val%%[![:space:]]*}"}"; val="${val%"${val##*[![:space:]]}"}"
+  [[ -z "$val" ]] && continue
+  [[ "$ALLOWED" == *" $key "* ]] || { echo "Réglage ignoré : $key"; continue; }
+  setv "$key" "$val"
+  case "$key" in *KEY*|*PASSWORD*|*SITE_ID*) echo "Enregistré : $key = (masqué)";; *) echo "Enregistré : $key = $val";; esac
+done
 if [[ -z "${ENV_FILE:-}" ]]; then
   systemctl restart carriere-humanitaire; sleep 3
   systemctl is-active --quiet carriere-humanitaire || { echo "Le site n'a pas redémarré :"; journalctl -u carriere-humanitaire -n 20 --no-pager; exit 1; }
