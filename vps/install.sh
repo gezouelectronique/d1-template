@@ -30,6 +30,7 @@ id "$APP_USER" >/dev/null 2>&1 || useradd --system --home "$APP_DIR" --shell /us
 mkdir -p "$APP_DIR/data" "$APP_DIR/backups"
 rm -rf "$APP_DIR/dist" "$APP_DIR/migrations" "$APP_DIR/public"
 cp -r "$SRC/dist" "$SRC/migrations" "$SRC/public" "$APP_DIR/"
+[[ -f "$SRC/configurer.sh" ]] && cp "$SRC/configurer.sh" "$APP_DIR/"
 if [[ ! -f "$APP_DIR/.env" ]]; then
   cp "$SRC/configuration.env" "$APP_DIR/.env"
   sed -i "s|^SITE_URL=.*|SITE_URL=https://$DOMAIN|" "$APP_DIR/.env"

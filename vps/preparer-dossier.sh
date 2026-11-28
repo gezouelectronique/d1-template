@@ -9,8 +9,8 @@ mkdir -p "$OUT/site" "$OUT/documents" "$OUT/code-source"
 
 npx esbuild vps/server.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/server.mjs --log-level=warning
 cp -r dist migrations public "$OUT/site/"
-cp vps/install.sh vps/configuration.env "$OUT/site/"
-cp vps/INSTALLER-SUR-VPS.bat vps/envoyer-sur-vps.ps1 vps/envoyer-sur-vps.sh vps/LISEZ-MOI.md "$OUT/"
+cp vps/install.sh vps/configuration.env vps/configurer.sh "$OUT/site/"
+cp vps/INSTALLER-SUR-VPS.bat vps/CONFIGURER-PAIEMENT.bat vps/envoyer-sur-vps.ps1 vps/envoyer-sur-vps.sh vps/LISEZ-MOI.md "$OUT/"
 cp docs/STRATEGIE.md docs/CALENDRIER-30-JOURS.md "$OUT/documents/"
 git archive --format=tar HEAD | tar -x -C "$OUT/code-source"
 
